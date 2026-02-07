@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎁 Radar Parcel Lebaran</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f6f6f6;
+  color:#333
+}
+header{
+  background:#1f7a3f;
+  color:#fff;
+  padding:20px;
+  text-align:center
+}
+.container{padding:14px}
+.card{
+  background:#fff;
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:14px;
+  box-shadow:0 4px 10px rgba(0,0,0,.1)
+}
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover
+}
+.card-body{padding:12px}
+.badge{
+  display:inline-block;
+  background:#e74c3c;
+  color:#fff;
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:12px
+}
+.price{
+  font-size:18px;
+  font-weight:bold;
+  color:#1f7a3f
+}
+.old{
+  font-size:13px;
+  color:#999;
+  text-decoration:line-through
+}
+.btn{
+  display:block;
+  width:100%;
+  background:#1f7a3f;
+  color:#fff;
+  border:none;
+  padding:12px;
+  border-radius:10px;
+  font-weight:bold;
+  margin-top:10px;
+  cursor:pointer
+}
+#countdown{
+  background:#fff3cd;
+  color:#856404;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+  margin:14px
+}
+footer{
+  background:#222;
+  color:#ccc;
+  text-align:center;
+  padding:14px;
+  font-size:13px;
+  margin-top:30px
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎁 Radar Parcel Lebaran</h1>
+  <p>Parcel Lebaran • Bisa Custom • Siap Kirim</p>
+</header>
+
+<div id="countdown"></div>
+
+<div class="container">
+
+<!-- PRODUK 1 -->
+<div class="card">
+  <img src="img/parcel1.jpg">
+  <div class="card-body">
+    <div class="badge">BEST SELLER</div>
+    <h3>Parcel Hemat</h3>
+    <div class="old">Rp 180.000</div>
+    <div class="price">Rp 150.000</div>
+    <p>Snack, minuman & kue lebaran</p>
+    <button class="btn" onclick="pesan('Parcel Hemat',150000)">
+      Pesan via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- PRODUK 2 -->
+<div class="card">
+  <img src="img/parcel2.jpg">
+  <div class="card-body">
+    <div class="badge">PROMO</div>
+    <h3>Parcel Spesial</h3>
+    <div class="price">Rp 250.000</div>
+    <p>Kue premium & coklat</p>
+    <button class="btn" onclick="pesan('Parcel Spesial',250000)">
+      Pesan via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- PRODUK 3 -->
+<div class="card">
+  <img src="img/parcel3.jpg">
+  <div class="card-body">
+    <div class="badge">LIMITED</div>
+    <h3>Parcel Premium</h3>
+    <div class="price">Rp 400.000</div>
+    <p>Isi lengkap & kemasan eksklusif</p>
+    <button class="btn" onclick="pesan('Parcel Premium',400000)">
+      Pesan via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- QRIS -->
+<div class="card">
+  <div class="card-body">
+    <h3>💳 Pembayaran QRIS</h3>
+
+    <!-- QRIS BISA DIKLIK -->
+    <a href="img/qris.png" target="_blank">
+      <img src="img/qris.png"
+           style="width:100%;border-radius:12px;cursor:pointer">
+    </a>
+
+    <p style="text-align:center;font-size:14px">
+      👆 Klik QRIS untuk memperbesar
+    </p>
+
+    <button class="btn"
+      onclick="window.open('https://wa.me/6282278298916?text=Halo%20saya%20sudah%20bayar%20pakai%20QRIS','_blank')">
+      Saya Sudah Bayar
+    </button>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <p>© 2026 Radar Parcel Lebaran</p>
+  <p>Order via WhatsApp • Aman • Terpercaya</p>
+</footer>
+
+<script>
+const WA = "6282278298916";
+
+function pesan(nama,harga){
+  const msg =
+`Halo admin Radar Parcel
+Saya mau pesan:
+Produk : ${nama}
+Harga  : Rp ${harga.toLocaleString('id-ID')}`;
+  window.open(
+    "https://wa.me/"+WA+"?text="+encodeURIComponent(msg),
+    "_blank"
+  );
+}
+
+const target = new Date("2026-04-10T00:00:00").getTime();
+setInterval(()=>{
+  const diff = target - Date.now();
+  document.getElementById("countdown").innerHTML =
+    diff>0
+    ? "⏳ Lebaran tinggal <b>"+Math.ceil(diff/86400000)+" hari</b>"
+    : "🎉 Selamat Hari Raya Idul Fitri";
+},1000);
+</script>
+
+</body>
+</html>
