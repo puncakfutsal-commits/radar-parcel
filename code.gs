@@ -1,68 +1,31 @@
-const SHEET_URL = "PASTE_LINK_GOOGLE_SHEET_KAMU";
-const ADMIN_WA  = "6282278298916"; // nomor WA admin
+function onEdit(e) {
+  const sheet = e.range.getSheet();
+  const col = e.range.getColumn();
+  const row = e.range.getRow();
 
-/* ======================
-   GET → KIRIM STOK KE WEB
-====================== */
-function doGet(e) {
-  const ss = SpreadsheetApp.openByUrl(SHEET_URL);
-  const stokSheet = ss.getSheetByName("Stok");
-  const data = stokSheet.getDataRange().getValues();
-  data.shift();
+  // Hanya sheet Data & kolom STATUS (E)
+  if (sheet.getName() !== "Data" || col !== 5) return;
 
-  let stok = {};
-  data.forEach(r => stok[r[0]] = r[1]);
+  const status = e.value;
+  if (status !== "PAID") return;
 
-  return ContentService
-    .createTextOutput(JSON.stringify(stok))
-    .setMimeType(ContentService.MimeType.JSON);
-}
+  const tanggal = sheet.getRange(row,1).getValue();
+  const parcel  = sheet.getRange(row,2).getValue();
+  const harga   = sheet.getRange(row,3).getValue();
+  const qty     = sheet.getRange(row,4).getValue();
 
-/* ======================
-   POST → ORDER / PAID
-====================== */
-function doPost(e) {
-  const ss = SpreadsheetApp.openByUrl(SHEET_URL);
-  const dataSheet = ss.getSheetByName("Data");
-  const stokSheet = ss.getSheetByName("Stok");
+  const ADMIN_WA = "6282278298916"; // GANTI NOMOR ADMIN
 
-  const body = JSON.parse(e.postData.contents);
+  const msg =
+`✅ PEMBAYARAN MASUK
 
-  // SIMPAN DATA ORDER
-  dataSheet.appendRow([
-    new Date(),
-    body.produk,
-    body.harga,
-    body.qty,
-    body.status
-  ]);
+Parcel : ${parcel}
+Qty    : ${qty}
+Harga  : Rp ${harga.toLocaleString('id-ID')}
+Tanggal: ${tanggal}`;
 
-  // KURANGI STOK JIKA ORDER
-  if (body.status === "ORDER") {
-    const stokData = stokSheet.getDataRange().getValues();
-    for (let i = 1; i < stokData.length; i++) {
-      if (stokData[i][0] === body.produk) {
-        stokSheet.getRange(i + 1, 2)
-          .setValue(stokData[i][1] - body.qty);
-        break;
-      }
-    }
-  }
+  const url = "https://wa.me/"+ADMIN_WA+"?text="+encodeURIComponent(msg);
 
-  // NOTIFIKASI WA ADMIN
-  let msg =
-`🔔 ${body.status === "PAID" ? "PEMBAYARAN MASUK" : "ORDER BARU"}
-Produk : ${body.produk}
-Harga  : Rp ${body.harga.toLocaleString("id-ID")}
-Qty    : ${body.qty}
-Status : ${body.status}`;
-
-  UrlFetchApp.fetch(
-    "https://api.whatsapp.com/send?phone=" +
-    ADMIN_WA + "&text=" + encodeURIComponent(msg)
-  );
-
-  return ContentService
-    .createTextOutput("OK")
-    .setMimeType(ContentService.MimeType.TEXT);
+  // LOG aja dulu (WA manual klik)
+  Logger.log(url);
 }
