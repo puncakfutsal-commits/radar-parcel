@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🎁 Radar Parcel Lebaran</title>
 
+<!-- PREVIEW WA -->
+<meta property="og:title" content="Radar Parcel Lebaran 🎁">
+<meta property="og:description" content="Parcel Lebaran siap kirim • Bisa custom">
+<meta property="og:image" content="img/parcel1.jpg">
+
 <style>
 body{
   margin:0;
@@ -62,6 +67,10 @@ header{
   margin-top:10px;
   cursor:pointer
 }
+.btn:disabled{
+  background:#aaa;
+  cursor:not-allowed
+}
 #countdown{
   background:#fff3cd;
   color:#856404;
@@ -78,10 +87,55 @@ footer{
   font-size:13px;
   margin-top:30px
 }
+
+/* QRIS POPUP */
+#qrisModal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  z-index:999;
+  align-items:center;
+  justify-content:center
+}
+#qrisBox{
+  background:#fff;
+  width:90%;
+  max-width:420px;
+  border-radius:16px;
+  padding:16px;
+  text-align:center
+}
+#qrisBox img{
+  width:100%;
+  border-radius:12px
+}
 </style>
 </head>
 
 <body>
+
+<script>
+/* =====================
+   SETTING UTAMA
+===================== */
+const WA_NUMBER = "6282278298916";     // GANTI NOMOR WA
+const SHEET_API = "";                 // PASTE URL APPS SCRIPT (opsional)
+
+/* STOK PRODUK */
+let stok = {
+  p1:5,
+  p2:3,
+  p3:2
+};
+
+/* QRIS PER PRODUK */
+const QRIS_MAP = {
+  "Parcel Hemat":"img/qris.png",
+  "Parcel Spesial":"img/qris.png",
+  "Parcel Premium":"img/qris.png"
+};
+</script>
 
 <header>
   <h1>🎁 Radar Parcel Lebaran</h1>
@@ -92,7 +146,7 @@ footer{
 
 <div class="container">
 
-<!-- PRODUK 1 -->
+<!-- PRODUK -->
 <div class="card">
   <img src="img/parcel1.jpg">
   <div class="card-body">
@@ -101,27 +155,16 @@ footer{
     <div class="old">Rp 180.000</div>
     <div class="price">Rp 150.000</div>
     <p>Snack, minuman & kue lebaran</p>
-    <button class="btn" onclick="pesan('Parcel Hemat',150000)">
+    <button class="btn" id="p1"
+      onclick="pesanStok('Parcel Hemat',150000,'p1')">
       Pesan via WhatsApp
+    </button>
+    <button class="btn" onclick="openQRIS('Parcel Hemat')">
+      Bayar QRIS
     </button>
   </div>
 </div>
 
-<!-- PRODUK 2 -->
-<div class="card">
-  <img src="img/parcel2.jpg">
-  <div class="card-body">
-    <div class="badge">PROMO</div>
-    <h3>Parcel Spesial</h3>
-    <div class="price">Rp 250.000</div>
-    <p>Kue premium & coklat</p>
-    <button class="btn" onclick="pesan('Parcel Spesial',250000)">
-      Pesan via WhatsApp
-    </button>
-  </div>
-</div>
-
-  <!-- PRODUK 3 -->
 <div class="card">
   <img src="img/parcel2.jpg">
   <div class="card-body">
@@ -129,72 +172,29 @@ footer{
     <h3>Parcel Spesial</h3>
     <div class="price">Rp 300.000</div>
     <p>Kue premium & coklat</p>
-    <button class="btn" onclick="pesan('Parcel Spesial',300000)">
+    <button class="btn" id="p2"
+      onclick="pesanStok('Parcel Spesial',300000,'p2')">
       Pesan via WhatsApp
+    </button>
+    <button class="btn" onclick="openQRIS('Parcel Spesial')">
+      Bayar QRIS
     </button>
   </div>
 </div>
 
-  <!-- PRODUK 4 -->
-<div class="card">
-  <img src="img/parcel2.jpg">
-  <div class="card-body">
-    <div class="badge">PROMO</div>
-    <h3>Parcel Spesial</h3>
-    <div class="price">Rp 500.000</div>
-    <p>Kue premium & coklat</p>
-    <button class="btn" onclick="pesan('Parcel Spesial',500000)">
-      Pesan via WhatsApp
-    </button>
-  </div>
-</div>
-
-  <!-- PRODUK 5 -->
-<div class="card">
-  <img src="img/parcel2.jpg">
-  <div class="card-body">
-    <div class="badge">PROMO</div>
-    <h3>Parcel Spesial</h3>
-    <div class="price">Rp 750.000</div>
-    <p>Kue premium & coklat</p>
-    <button class="btn" onclick="pesan('Parcel Spesial',750000)">
-      Pesan via WhatsApp
-    </button>
-  </div>
-</div>
-
-<!-- PRODUK 6 -->
 <div class="card">
   <img src="img/parcel3.jpg">
   <div class="card-body">
     <div class="badge">LIMITED</div>
     <h3>Parcel Premium</h3>
-    <div class="price">Rp 1000.000</div>
+    <div class="price">Rp 1.000.000</div>
     <p>Isi lengkap & kemasan eksklusif</p>
-    <button class="btn" onclick="pesan('Parcel Premium',1000000)">
+    <button class="btn" id="p3"
+      onclick="pesanStok('Parcel Premium',1000000,'p3')">
       Pesan via WhatsApp
     </button>
-  </div>
-</div>
-
-<!-- QRIS -->
-<div class="card">
-  <div class="card-body">
-    <h3>💳 Pembayaran QRIS</h3>
-
-    <!-- QRIS BISA DIKLIK -->
-    <a href="img/qris.png" target="_blank">
-      <img src="img/qris.png"
-           style="width:100%;border-radius:12px;cursor:pointer">
-    </a>
-
-    <p style="text-align:center;font-size:14px">
-      👆 Klik QRIS untuk memperbesar
-    </p>
-
-    <button class="btn"
-      onclick="window.open('https://wa.me/6282278298916?text=Halo%20saya%20sudah%20bayar%20pakai%20QRIS','_blank')">
-      Saya Sudah Bayar
+    <button class="btn" onclick="openQRIS('Parcel Premium')">
+      Bayar QRIS
     </button>
   </div>
 </div>
@@ -206,17 +206,69 @@ footer{
   <p>Order via WhatsApp • Aman • Terpercaya</p>
 </footer>
 
-<script>
-const WA = "6282278831231";
+<!-- QRIS MODAL -->
+<div id="qrisModal">
+  <div id="qrisBox">
+    <h3>Scan QRIS</h3>
+    <img id="qrisImg">
+    <button class="btn" onclick="konfirmasiBayar()">Saya Sudah Bayar</button>
+    <button class="btn" onclick="closeQRIS()">Tutup</button>
+  </div>
+</div>
 
+<script>
 function pesan(nama,harga){
   const msg =
 `Halo admin Radar Parcel
 Saya mau pesan:
 Produk : ${nama}
 Harga  : Rp ${harga.toLocaleString('id-ID')}`;
+
   window.open(
-    "https://wa.me/"+WA+"?text="+encodeURIComponent(msg),
+    "https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(msg),
+    "_blank"
+  );
+
+  if(SHEET_API){
+    fetch(SHEET_API,{
+      method:"POST",
+      body:JSON.stringify({
+        produk:nama,
+        harga:harga,
+        status:"ORDER"
+      })
+    });
+  }
+}
+
+function pesanStok(nama,harga,id){
+  if(stok[id]<=0){
+    alert("Stok habis");
+    return;
+  }
+  stok[id]--;
+  if(stok[id]<=0){
+    const btn=document.getElementById(id);
+    btn.innerText="STOK HABIS";
+    btn.disabled=true;
+  }
+  pesan(nama,harga);
+}
+
+function openQRIS(produk){
+  document.getElementById("qrisImg").src =
+    QRIS_MAP[produk];
+  document.getElementById("qrisModal").style.display="flex";
+}
+
+function closeQRIS(){
+  document.getElementById("qrisModal").style.display="none";
+}
+
+function konfirmasiBayar(){
+  window.open(
+    "https://wa.me/"+WA_NUMBER+
+    "?text=Halo%20saya%20sudah%20bayar%20pakai%20QRIS",
     "_blank"
   );
 }
