@@ -4,122 +4,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radar Parcel Lebaran</title>
-
 <style>
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f4f4f4
-}
-header{
-  background:#1f7a3f;
-  color:#fff;
-  padding:20px;
-  text-align:center
-}
+body { margin:0; font-family:Arial,sans-serif; background:#f6f6f6; color:#333 }
+header{background:#1f7a3f;color:#fff;padding:20px;text-align:center;}
 .container{padding:14px}
-.card{
-  background:#fff;
-  border-radius:14px;
-  margin-bottom:14px;
-  box-shadow:0 4px 10px rgba(0,0,0,.1);
-  overflow:hidden
-}
-.card img{
-  width:100%;
-  height:220px;
-  object-fit:contain;   /* FOTO UTUH */
-  background:#fff
-}
-.card-body{padding:14px}
-.price{font-size:18px;font-weight:bold;color:#1f7a3f}
-.btn{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:#1f7a3f;
-  color:#fff;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:10px
-}
-.btn:disabled{background:#aaa}
-.stok{font-size:13px;color:#666}
+.card{background:#fff;border-radius:14px;margin-bottom:14px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+.card img{width:100%;height:180px;object-fit:contain;background:#fff;}
+.card-body{padding:12px;}
+.price{font-size:18px;font-weight:bold;color:#1f7a3f;}
+.btn{display:block;width:100%;background:#1f7a3f;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:bold;margin-top:10px;cursor:pointer;}
+.btn:disabled{background:#aaa;cursor:not-allowed;}
+footer{background:#222;color:#ccc;text-align:center;padding:14px;font-size:13px;margin-top:30px;}
 </style>
 </head>
-
 <body>
 
 <header>
-  <h1>🎁 Radar Parcel Lebaran</h1>
-  <p>Parcel Lebaran • Siap Kirim</p>
+  <h1>🎁 Radar Parcel Lebaran</h1><p>Parcel Lebaran • Siap Kirim</p>
 </header>
 
 <div class="container" id="produk"></div>
 
-<script>
-/* =====================
-   KONFIGURASI
-===================== */
-const API_URL = "https://script.google.com/macros/s/AKfycbzxi26uhC04ELOI-1ftURrsZctZNxKRezENidCC4hcz4eEAIQW1BkRchveF0X8hM4ehfg/exec";
+<footer>© 2026 Radar Parcel Lebaran</footer>
 
-/* DAFTAR PRODUK (HARUS SAMA DENGAN SHEET STOK) */
+<script>
+const WEBAPP_URL = "PASTE_URL_WEBAPP_KAMU";
+const ADMIN_WA   = "6282278298916";
+
+// Produk (harus sama dengan sheet Stok)
 const PRODUK = [
   {nama:"Parcel Hemat", harga:150000, img:"img/parcel1.jpg"},
   {nama:"Parcel Spesial", harga:300000, img:"img/parcel2.jpg"},
-  {nama:"Parcel Premium", harga:1000000, img:"img/parcel3.jpg"},
+  {nama:"Parcel Premium", harga:1000000, img:"img/parcel3.jpg"}
 ];
 
-/* =====================
-   LOAD STOK DARI SHEET
-===================== */
-fetch(API_URL)
-.then(res => res.json())
-.then(stok => {
+// tampilkan produk
+fetch(WEBAPP_URL).then(r=>r.json()).then(stok=>{
   const box = document.getElementById("produk");
-
-  PRODUK.forEach(p => {
-    const sisa = stok[p.nama] ?? 0;
-
+  PRODUK.forEach(p=>{
+    const sisa = stok[p.nama]||0;
     box.innerHTML += `
       <div class="card">
         <img src="${p.img}">
         <div class="card-body">
           <h3>${p.nama}</h3>
-          <div class="price">Rp ${p.harga.toLocaleString('id-ID')}</div>
-          <div class="stok">Stok: ${sisa}</div>
-          <button class="btn"
-            ${sisa<=0?"disabled":""}
-            onclick="order('${p.nama}',${p.harga})">
-            ${sisa<=0?"STOK HABIS":"Pesan Sekarang"}
+          <div class="price">Rp ${p.harga.toLocaleString("id-ID")}</div>
+          <button class="btn" data-produk="${p.nama}" ${sisa<=0?'disabled':''}
+            onclick="pesan('${p.nama}',${p.harga})">
+            ${sisa<=0?"STOK HABIS":"Pesan via WhatsApp"}
           </button>
         </div>
       </div>`;
   });
 });
 
-/* =====================
-   KIRIM ORDER KE SHEET
-===================== */
-function order(nama,harga){
-  fetch(API_URL,{
+function pesan(produk,harga){
+  fetch(WEBAPP_URL,{
     method:"POST",
-    body:JSON.stringify({
-      produk:nama,
-      harga:harga,
-      qty:1,
-      status:"ORDER"
-    })
-  })
-  .then(res=>res.json())
-  .then(r=>{
-    if(r.wa){
-      window.open(r.wa,"_blank");
-    }else{
-      alert("Order masuk, tapi WA gagal");
-    }
+    body:JSON.stringify({produk, harga, qty:1, status:"ORDER"})
   });
+  window.open("https://wa.me/"+ADMIN_WA+"?text="+encodeURIComponent("Halo admin saya pesan "+produk),"_blank");
 }
 </script>
 
