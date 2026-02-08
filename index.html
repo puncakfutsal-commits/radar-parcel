@@ -3,185 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎁 Radar Parcel Lebaran</title>
+<title>Radar Parcel Lebaran</title>
+
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f6f6f6;color:#333}
-header{background:#1f7a3f;color:#fff;padding:20px;text-align:center}
-.container{padding:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
-.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f4f4
+}
+header{
+  background:#1f7a3f;
+  color:#fff;
+  padding:20px;
+  text-align:center
+}
+.container{padding:14px}
+.card{
+  background:#fff;
+  border-radius:14px;
+  margin-bottom:14px;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+  overflow:hidden
+}
 .card img{
   width:100%;
-  height:180px;
-  object-fit:contain; /* foto utuh */
-  background:#f6f6f6;
-  display:block;
+  height:220px;
+  object-fit:contain;   /* FOTO UTUH */
+  background:#fff
 }
-.card-body{padding:12px}
-.badge{display:inline-block;background:#e74c3c;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;margin-bottom:4px}
+.card-body{padding:14px}
 .price{font-size:18px;font-weight:bold;color:#1f7a3f}
-.old{font-size:13px;color:#999;text-decoration:line-through}
-.btn{display:block;width:100%;background:#1f7a3f;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:bold;margin-top:10px;cursor:pointer}
-.btn:disabled{background:#aaa;cursor:not-allowed}
-#countdown{background:#fff3cd;color:#856404;padding:10px;border-radius:10px;text-align:center;margin:14px;font-weight:bold;font-size:16px}
-#qrisModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center}
-#qrisBox{background:#fff;width:90%;max-width:420px;border-radius:16px;padding:16px;text-align:center}
-#qrisBox img{width:100%;border-radius:12px}
-footer{background:#222;color:#ccc;text-align:center;padding:14px;font-size:13px;margin-top:30px}
+.btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#1f7a3f;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px
+}
+.btn:disabled{background:#aaa}
+.stok{font-size:13px;color:#666}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🎁 Radar Parcel Lebaran</h1>
-<p>Parcel Lebaran • Bisa Custom • Siap Kirim</p>
+  <h1>🎁 Radar Parcel Lebaran</h1>
+  <p>Parcel Lebaran • Siap Kirim</p>
 </header>
 
-<div id="countdown"></div>
-
-<div class="container">
-<!-- 7 Parcel Cards -->
-<div class="card">
-<img src="img/parcel1.jpg" alt="Parcel 1">
-<div class="card-body">
-<div class="badge">BEST SELLER</div>
-<h3>Parcel Hemat</h3>
-<div class="old">Rp 180.000</div>
-<div class="price">Rp 150.000</div>
-<p>Snack & minuman</p>
-<button class="btn" id="p1" onclick="pesanStok('Parcel Hemat',150000,'p1')">Pesan via WhatsApp</button>
-<button class="btn" onclick="openQRIS('Parcel Hemat')">Bayar QRIS</button>
-</div>
-</div>
-
-<div class="card">
-<img src="img/parcel2.jpg" alt="Parcel 2">
-<div class="card-body">
-<div class="badge">PROMO</div>
-<h3>Parcel Spesial</h3>
-<div class="price">Rp 300.000</div>
-<p>Kue premium & coklat</p>
-<button class="btn" id="p2" onclick="pesanStok('Parcel Spesial',300000,'p2')">Pesan via WhatsApp</button>
-<button class="btn" onclick="openQRIS('Parcel Spesial')">Bayar QRIS</button>
-</div>
-</div>
-
-<div class="card">
-<img src="img/parcel3.jpg" alt="Parcel 3">
-<div class="card-body">
-<div class="badge">LIMITED</div>
-<h3>Parcel Premium</h3>
-<div class="price">Rp 1.000.000</div>
-<p>Isi lengkap & kemasan eksklusif</p>
-<button class="btn" id="p3" onclick="pesanStok('Parcel Premium',1000000,'p3')">Pesan via WhatsApp</button>
-<button class="btn" onclick="openQRIS('Parcel Premium')">Bayar QRIS</button>
-</div>
-</div>
-
-<div class="card">
-<img src="img/parcel4.jpg" alt="Parcel 4">
-<div class="card-body">
-<div class="badge">NEW</div>
-<h3>Parcel Deluxe</h3>
-<div class="price">Rp 450.000</div>
-<p>Snack, coklat & minuman premium</p>
-<button class="btn" id="p4" onclick="pesanStok('Parcel Deluxe',450000,'p4')">Pesan via WhatsApp</button>
-<button class="btn" onclick="openQRIS('Parcel Deluxe')">Bayar QRIS</button>
-</div>
-</div>
-
-<div class="card">
-<img src="img/parcel5.jpg" alt="Parcel 5">
-<div class="card-body">
-<div class="badge">HOT</div>
-<h3>Parcel Super</h3>
-<div class="price">Rp 600.000</div>
-<p>Coklat premium & souvenir lebaran</p>
-<button class="btn" id="p5" onclick="pesanStok('Parcel Super',600000,'p5')">Pesan via WhatsApp</button>
-<button class="btn" onclick="openQRIS('Parcel Super')">Bayar QRIS</button>
-</div>
-</div>
-
-<div class="card">
-<img src="img/parcel6.jpg" alt="Parcel 6">
-<div class="card-body">
-<div class="badge">EXCLUSIVE</div>
-<h3>Parcel Elegan</h3>
-<div class="price">Rp 750.000</div>
-<p>Isi lengkap + packaging eksklusif</p>
-<button class="btn" id="p6" onclick="pesanStok('Parcel Elegan',750000,'p6')">Pesan via WhatsApp</button>
-<button class="btn" onclick="openQRIS('Parcel Elegan')">Bayar QRIS</button>
-</div>
-</div>
-
-<div class="card">
-<img src="img/parcel7.jpg" alt="Parcel 7">
-<div class="card-body">
-<div class="badge">SPECIAL</div>
-<h3>Parcel Ultimate</h3>
-<div class="price">Rp 1.200.000</div>
-<p>Isi premium lengkap + souvenir spesial</p>
-<button class="btn" id="p7" onclick="pesanStok('Parcel Ultimate',1200000,'p7')">Pesan via WhatsApp</button>
-<button class="btn" onclick="openQRIS('Parcel Ultimate')">Bayar QRIS</button>
-</div>
-</div>
-
-</div>
-
-<footer>
-<p>© 2026 Radar Parcel Lebaran • Order via WhatsApp • Aman & Terpercaya</p>
-</footer>
-
-<div id="qrisModal">
-<div id="qrisBox">
-<h3>Scan QRIS</h3>
-<img id="qrisImg" src="img/qris.png">
-<button class="btn" onclick="konfirmasiBayar()">Saya Sudah Bayar</button>
-<button class="btn" onclick="closeQRIS()">Tutup</button>
-</div>
-</div>
+<div class="container" id="produk"></div>
 
 <script>
-const WA_NUMBER="6282278298916";
-const WEBAPP_URL="MASUKKAN_URL_WEBAPP";
+/* =====================
+   KONFIGURASI
+===================== */
+const API_URL = "https://script.google.com/macros/s/AKfycbzxi26uhC04ELOI-1ftURrsZctZNxKRezENidCC4hcz4eEAIQW1BkRchveF0X8hM4ehfg/exec";
 
-let stok={p1:5,p2:3,p3:2,p4:4,p5:3,p6:2,p7:1};
-const QRIS_MAP={
-"Parcel Hemat":"img/qris.png",
-"Parcel Spesial":"img/qris.png",
-"Parcel Premium":"img/qris.png",
-"Parcel Deluxe":"img/qris.png",
-"Parcel Super":"img/qris.png",
-"Parcel Elegan":"img/qris.png",
-"Parcel Ultimate":"img/qris.png"
-};
+/* DAFTAR PRODUK (HARUS SAMA DENGAN SHEET STOK) */
+const PRODUK = [
+  {nama:"Parcel Hemat", harga:150000, img:"img/parcel1.jpg"},
+  {nama:"Parcel Spesial", harga:300000, img:"img/parcel2.jpg"},
+  {nama:"Parcel Premium", harga:1000000, img:"img/parcel3.jpg"},
+];
 
-function pesan(nama,harga){
-const msg=`Halo admin, saya mau pesan: ${nama} Harga: Rp ${harga.toLocaleString('id-ID')}`;
-window.open("https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(msg));
-fetch(WEBAPP_URL,{
-method:"POST",
-body:JSON.stringify({sales:"Online",produk:nama,harga:harga,qty:1,status:"ORDER"})
+/* =====================
+   LOAD STOK DARI SHEET
+===================== */
+fetch(API_URL)
+.then(res => res.json())
+.then(stok => {
+  const box = document.getElementById("produk");
+
+  PRODUK.forEach(p => {
+    const sisa = stok[p.nama] ?? 0;
+
+    box.innerHTML += `
+      <div class="card">
+        <img src="${p.img}">
+        <div class="card-body">
+          <h3>${p.nama}</h3>
+          <div class="price">Rp ${p.harga.toLocaleString('id-ID')}</div>
+          <div class="stok">Stok: ${sisa}</div>
+          <button class="btn"
+            ${sisa<=0?"disabled":""}
+            onclick="order('${p.nama}',${p.harga})">
+            ${sisa<=0?"STOK HABIS":"Pesan Sekarang"}
+          </button>
+        </div>
+      </div>`;
+  });
 });
+
+/* =====================
+   KIRIM ORDER KE SHEET
+===================== */
+function order(nama,harga){
+  fetch(API_URL,{
+    method:"POST",
+    body:JSON.stringify({
+      produk:nama,
+      harga:harga,
+      qty:1,
+      status:"ORDER"
+    })
+  })
+  .then(res=>res.json())
+  .then(r=>{
+    if(r.wa){
+      window.open(r.wa,"_blank");
+    }else{
+      alert("Order masuk, tapi WA gagal");
+    }
+  });
 }
-
-function pesanStok(nama,harga,id){
-if(stok[id]<=0){alert("Stok habis");return;}
-stok[id]--;
-if(stok[id]<=0){document.getElementById(id).innerText="STOK HABIS";document.getElementById(id).disabled=true;}
-pesan(nama,harga);
-}
-
-function openQRIS(produk){document.getElementById("qrisImg").src=QRIS_MAP[produk];document.getElementById("qrisModal").style.display="flex";}
-function closeQRIS(){document.getElementById("qrisModal").style.display="none";}
-function konfirmasiBayar(){window.open("https://wa.me/"+WA_NUMBER+"?text=Halo saya sudah bayar pakai QRIS","_blank");closeQRIS();}
-
-const target=new Date("2026-04-10T00:00:00").getTime();
-setInterval(()=>{
-const diff=target-Date.now();
-document.getElementById("countdown").innerHTML=
-diff>0?"⏳ Lebaran tinggal <b>"+Math.ceil(diff/86400000)+" hari</b>":"🎉 Selamat Hari Raya Idul Fitri";
-},1000);
 </script>
 
 </body>
