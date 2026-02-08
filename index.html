@@ -15,45 +15,48 @@ body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:#f6f6f6;
-  color:#333
+  color:#333;
 }
 header{
   background:#1f7a3f;
   color:#fff;
   padding:20px;
-  text-align:center
+  text-align:center;
 }
-.container{padding:14px}
+.container{padding:14px;}
 .card{
   background:#fff;
   border-radius:14px;
   overflow:hidden;
   margin-bottom:14px;
-  box-shadow:0 4px 10px rgba(0,0,0,.1)
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
 }
 .card img{
-  width:100%;
-  height:180px;
-  object-fit:cover
+  width:100%;           /* penuhi lebar card */
+  height:auto;          /* tinggi proporsional */
+  object-fit:contain;   /* tampil utuh tanpa terpotong */
+  border-radius:14px 14px 0 0;
+  background:#f6f6f6;
+  display:block;
 }
-.card-body{padding:12px}
+.card-body{padding:12px;}
 .badge{
   display:inline-block;
   background:#e74c3c;
   color:#fff;
   padding:4px 10px;
   border-radius:20px;
-  font-size:12px
+  font-size:12px;
 }
 .price{
   font-size:18px;
   font-weight:bold;
-  color:#1f7a3f
+  color:#1f7a3f;
 }
 .old{
   font-size:13px;
   color:#999;
-  text-decoration:line-through
+  text-decoration:line-through;
 }
 .btn{
   display:block;
@@ -65,11 +68,11 @@ header{
   border-radius:10px;
   font-weight:bold;
   margin-top:10px;
-  cursor:pointer
+  cursor:pointer;
 }
 .btn:disabled{
   background:#aaa;
-  cursor:not-allowed
+  cursor:not-allowed;
 }
 #countdown{
   background:#fff3cd;
@@ -77,7 +80,7 @@ header{
   padding:10px;
   border-radius:10px;
   text-align:center;
-  margin:14px
+  margin:14px;
 }
 footer{
   background:#222;
@@ -85,7 +88,7 @@ footer{
   text-align:center;
   padding:14px;
   font-size:13px;
-  margin-top:30px
+  margin-top:30px;
 }
 
 /* QRIS POPUP */
@@ -96,7 +99,7 @@ footer{
   background:rgba(0,0,0,.7);
   z-index:999;
   align-items:center;
-  justify-content:center
+  justify-content:center;
 }
 #qrisBox{
   background:#fff;
@@ -104,11 +107,11 @@ footer{
   max-width:420px;
   border-radius:16px;
   padding:16px;
-  text-align:center
+  text-align:center;
 }
 #qrisBox img{
   width:100%;
-  border-radius:12px
+  border-radius:12px;
 }
 </style>
 </head>
@@ -120,7 +123,7 @@ footer{
    SETTING UTAMA
 ===================== */
 const WA_NUMBER = "6282278298916";     // GANTI NOMOR WA
-const SHEET_API = "";                 // PASTE URL APPS SCRIPT (opsional)
+const SHEET_API = "";                  // PASTE URL APPS SCRIPT (opsional)
 
 /* STOK PRODUK */
 let stok = {
