@@ -40,9 +40,9 @@ footer{background:#222;color:#ccc;text-align:center;padding:14px;font-size:13px;
 <div id="countdown"></div>
 
 <div class="container">
-<!-- Parcel 1 -->
+<!-- 7 Parcel Cards -->
 <div class="card">
-<img src="https://picsum.photos/id/101/400/300" alt="Parcel Hemat">
+<img src="img/parcel1.jpg" alt="Parcel 1">
 <div class="card-body">
 <div class="badge">BEST SELLER</div>
 <h3>Parcel Hemat</h3>
@@ -54,9 +54,8 @@ footer{background:#222;color:#ccc;text-align:center;padding:14px;font-size:13px;
 </div>
 </div>
 
-<!-- Parcel 2 -->
 <div class="card">
-<img src="https://picsum.photos/id/102/400/300" alt="Parcel Spesial">
+<img src="img/parcel2.jpg" alt="Parcel 2">
 <div class="card-body">
 <div class="badge">PROMO</div>
 <h3>Parcel Spesial</h3>
@@ -67,9 +66,8 @@ footer{background:#222;color:#ccc;text-align:center;padding:14px;font-size:13px;
 </div>
 </div>
 
-<!-- Parcel 3 -->
 <div class="card">
-<img src="https://picsum.photos/id/103/400/300" alt="Parcel Premium">
+<img src="img/parcel3.jpg" alt="Parcel 3">
 <div class="card-body">
 <div class="badge">LIMITED</div>
 <h3>Parcel Premium</h3>
@@ -80,9 +78,8 @@ footer{background:#222;color:#ccc;text-align:center;padding:14px;font-size:13px;
 </div>
 </div>
 
-<!-- Parcel 4 -->
 <div class="card">
-<img src="https://picsum.photos/id/104/400/300" alt="Parcel Deluxe">
+<img src="img/parcel4.jpg" alt="Parcel 4">
 <div class="card-body">
 <div class="badge">NEW</div>
 <h3>Parcel Deluxe</h3>
@@ -93,9 +90,8 @@ footer{background:#222;color:#ccc;text-align:center;padding:14px;font-size:13px;
 </div>
 </div>
 
-<!-- Parcel 5 -->
 <div class="card">
-<img src="https://picsum.photos/id/105/400/300" alt="Parcel Super">
+<img src="img/parcel5.jpg" alt="Parcel 5">
 <div class="card-body">
 <div class="badge">HOT</div>
 <h3>Parcel Super</h3>
@@ -106,9 +102,8 @@ footer{background:#222;color:#ccc;text-align:center;padding:14px;font-size:13px;
 </div>
 </div>
 
-<!-- Parcel 6 -->
 <div class="card">
-<img src="https://picsum.photos/id/106/400/300" alt="Parcel Elegan">
+<img src="img/parcel6.jpg" alt="Parcel 6">
 <div class="card-body">
 <div class="badge">EXCLUSIVE</div>
 <h3>Parcel Elegan</h3>
@@ -119,9 +114,8 @@ footer{background:#222;color:#ccc;text-align:center;padding:14px;font-size:13px;
 </div>
 </div>
 
-<!-- Parcel 7 -->
 <div class="card">
-<img src="https://picsum.photos/id/107/400/300" alt="Parcel Ultimate">
+<img src="img/parcel7.jpg" alt="Parcel 7">
 <div class="card-body">
 <div class="badge">SPECIAL</div>
 <h3>Parcel Ultimate</h3>
@@ -138,11 +132,10 @@ footer{background:#222;color:#ccc;text-align:center;padding:14px;font-size:13px;
 <p>© 2026 Radar Parcel Lebaran • Order via WhatsApp • Aman & Terpercaya</p>
 </footer>
 
-<!-- QRIS Modal -->
 <div id="qrisModal">
 <div id="qrisBox">
 <h3>Scan QRIS</h3>
-<img id="qrisImg" src="https://picsum.photos/400/400?grayscale&text=QRIS">
+<img id="qrisImg" src="img/qris.png">
 <button class="btn" onclick="konfirmasiBayar()">Saya Sudah Bayar</button>
 <button class="btn" onclick="closeQRIS()">Tutup</button>
 </div>
@@ -154,13 +147,13 @@ const WEBAPP_URL="MASUKKAN_URL_WEBAPP";
 
 let stok={p1:5,p2:3,p3:2,p4:4,p5:3,p6:2,p7:1};
 const QRIS_MAP={
-"Parcel Hemat":"https://picsum.photos/400/400?grayscale&text=QRIS",
-"Parcel Spesial":"https://picsum.photos/400/400?grayscale&text=QRIS",
-"Parcel Premium":"https://picsum.photos/400/400?grayscale&text=QRIS",
-"Parcel Deluxe":"https://picsum.photos/400/400?grayscale&text=QRIS",
-"Parcel Super":"https://picsum.photos/400/400?grayscale&text=QRIS",
-"Parcel Elegan":"https://picsum.photos/400/400?grayscale&text=QRIS",
-"Parcel Ultimate":"https://picsum.photos/400/400?grayscale&text=QRIS"
+"Parcel Hemat":"img/qris.png",
+"Parcel Spesial":"img/qris.png",
+"Parcel Premium":"img/qris.png",
+"Parcel Deluxe":"img/qris.png",
+"Parcel Super":"img/qris.png",
+"Parcel Elegan":"img/qris.png",
+"Parcel Ultimate":"img/qris.png"
 };
 
 function pesan(nama,harga){
